@@ -5,7 +5,7 @@ backup/
 bin/
 db/
 sui
-web/html
+# web/html  -- include pre-built frontend when present
 main
 tmp
 .sync*

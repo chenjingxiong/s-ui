@@ -117,6 +117,12 @@ func (s *Server) initRouter() (*gin.Engine, error) {
 			c.Redirect(http.StatusTemporaryRedirect, base_url)
 			return
 		}
+		// When the panel is served under a sub-path (e.g. /app/), redirect the
+		// site root "/" to it so users don't hit a 404 when opening the base URL.
+		if base_url != "/" && c.Request.URL.Path == "/" {
+			c.Redirect(http.StatusTemporaryRedirect, base_url)
+			return
+		}
 		if !strings.HasPrefix(c.Request.URL.Path, base_url) {
 			c.String(404, "")
 			return
